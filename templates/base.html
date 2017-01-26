@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Online Shopping App</title>
+
+	<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/jquery-ui.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" media="screen">
+	<link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#"><span>company</span>Logo</a>
+			</div>
+			<centre>
+				<div class="navbar-form navbar-right">
+					{% block right_nav %}{% endblock %}
+				</div>
+			</centre>
+		</div>
+	</nav><!-- End of head nav-->
+	
+	{% with messages = get_flashed_messages() %}
+		{% if messages %}
+			{% for message in messages %}
+				<div class="alert alert-danger alert-dismisable" role="alert">
+				<button type="button" class="close" data-dismiss="alert" arial-label="close"><span aria-hidden="true">&times;</span></button>
+					{{message }}
+				</div>
+			{% endfor %}
+		{% endif %}
+	{% endwith %}
+
+
+
+</head>
+
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#"><span>Company</span>Name</a>
+			</div>
+							
+		</div><!-- /.container-fluid -->
+	</nav>
+		
+	<!-- Side bar nav-->
+<!--<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+	<ul class="nav menu">
+		<li class="active"><a href="#">
+			<i class="glyphicon glyphicon-user visible-xs"></i> 
+			<span class="visible-sm visible-md visible-lg"><i class="glyphicon glyphicon-user"></i> Profile </span>
+		</a></li>
+		<li class="active"><a href="applied_jobs.php">
+			<i class="glyphicon glyphicon-briefcase visible-xs"></i> 
+			<span class="visible-sm visible-md visible-lg"><i class="glyphicon glyphicon-briefcase"></i> Applied Jobs </span>
+		</a></li>
+		<li class="active"><a href="available_jobs.php">
+			<i class="glyphicon glyphicon-tasks visible-xs"></i> 
+			<span class="visible-sm visible-md visible-lg"><i class="glyphicon glyphicon-tasks"></i> Available Jobs </span>
+		</a></li>
+		<li class="active"><a href="#">
+			<i class="glyphicon glyphicon-user visible-xs"></i> 
+			<span class="visible-sm visible-md visible-lg"><i class="glyphicon glyphicon-user"></i> Profile </span>
+		</a></li>
+	</ul>
+</div>--><!-- End of side nav-->
+		
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
+		<!--<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="#"class="glyphicon glyphicon-home"></a></li>
+				<li class="active"></li>
+			</ol>
+		</div>--><!--/.row -Bread crumbs-->
+		
+		<div class="row">
+			
+		</div><!--/.row-->
+		
+		<div class="row">
+            
+		</div><!--/.row-->
+					
+		<div class="row">
+			
+		</div><!--/.row-->
+	</div>	<!--/.main-->
+{% block body %}{% endblock %}
+
+{% block modal %}{% endblock %}
+
+	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.1.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>
