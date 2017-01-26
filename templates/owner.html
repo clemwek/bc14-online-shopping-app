@@ -22,19 +22,6 @@
 {% endblock %}
 
 {% block body %}
-<br/><br/><br/><br/>
-<div class="login-panel panel panel-default" style="width: 80%; margin: 0 auto;">
-	<div class="panel-body">
-		<div class="message">
-			<h3>{{msg}}</h3>
-		</div><hr/>
-
-	</div>
-</div>
-<h3>{{error}}</h3>
-
-<h2></h2>
-
 <br/><br/><br/>
 <div class="login-panel panel panel-default" style="width: 80%; margin: 0 auto;">
 	<div class="panel-body">
@@ -42,13 +29,15 @@
 			<h3>{{msg}}</h3>
 		</div><hr/>
 		<div class="login-panel panel-default" style="background: #C8FFCB;">
-			{% if results[0] == [] %}
-				<h1>This is a clean installation!!!</h1>
+			{% if stores == [] %}
+				<h1>You have not set stores yet!!!</h1>
 			{% endif %}
-			{% for store in results[0] %}
-				{% for product_list in results[1] %}
-					{% if store[0] in product_list %}
-
+			{% for store in stores %}
+			<h2>Store: </h2>{{ store }} <br/>
+			
+				{% for product in product_list[0] %}
+					
+					<h3>product: </h3> {{ product[0] }}
 			<div class="row">
 				<div class="col-sm-2">
 					<div class="store-name">
@@ -112,7 +101,7 @@
 				</div>
 			</div>
 		</div><!-- row -->
-					{% endif %}
+					
 				{% endfor %}
 			{% endfor %}	
 	</div>
@@ -176,9 +165,10 @@
 					<div class="col-xs-4">
 						<label class="sr-only" for="prodName">Store Name: </label>
 						<select name="store_id">
-							{%  %}
 							<option>choose store</option>
-							<option value="2">test 2</option>
+							{% for store in stores %}
+							<option value="{{store[0]}}">{{ store[2] }}</option>
+							{% endfor %}
 						</select><p class="help-text small">Enter your Product name.</p>
 					</div>
 					<div class="col-xs-4">
