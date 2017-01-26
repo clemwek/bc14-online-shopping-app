@@ -25,7 +25,14 @@
 			<h3>{{msg}}</h3>
 		</div><hr/>
 		<div class="login-panel panel-default" style="background: #C8FFCB;">
-			<div class="row">
+			{% if results[0] == [] %}
+				<h1>This is a clean installation!!!</h1>
+			{% endif %}
+			{% for store in results[0] %}
+				{% for product_list in results[1] %}
+					{% if store[0] in product_list %}
+
+<div class="row">
 				<div class="col-sm-2">
 					<div class="store-name">
 						<div class="media-left">
@@ -88,262 +95,15 @@
 				</div>
 			</div>
 		</div><!-- row -->
-		<div class="login-panel panel-default" style="background: #C8FFCB;">
-			<div class="row">
-				<div class="col-sm-2">
-					<div class="store-name">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/store.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{StoreName}}StoreName</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="product-row">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{productname}} product name</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="product-row">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{productname}} product name</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="product-row">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{productname}} product name</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="product-row">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{productname}} product name</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="product-row">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{productname}} product name</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div><!-- row -->
-		<div class="login-panel panel-default" style="background: #C8FFCB;">
-			<div class="row">
-				<div class="col-sm-2">
-					<div class="store-name">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/store.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{StoreName}}StoreName</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="product-row">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{productname}} product name</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="product-row">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{productname}} product name</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="product-row">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{productname}} product name</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="product-row">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{productname}} product name</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="product-row">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{productname}} product name</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div><!-- row -->
-		<div class="login-panel panel-default" style="background: #C8FFCB;">
-			<div class="row">
-				<div class="col-sm-2">
-					<div class="store-name">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/store.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{StoreName}}StoreName</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="product-row">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{productname}} product name</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="product-row">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{productname}} product name</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="product-row">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{productname}} product name</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="product-row">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{productname}} product name</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="product-row">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{productname}} product name</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div><!-- row -->
-		<div class="login-panel panel-default" style="background: #C8FFCB;">
-			<div class="row">
-				<div class="col-sm-2">
-					<div class="store-name">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/store.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{StoreName}}StoreName</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="product-row">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{productname}} product name</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="product-row">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{productname}} product name</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="product-row">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{productname}} product name</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="product-row">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{productname}} product name</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="product-row">
-						<div class="media-left">
-							<a href="#">
-								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
-							</a>
-							<p>{{productname}} product name</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div><!-- row -->
+
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
+
+
+
+
+			
 	</div>
 </div>
 {% endblock %}
