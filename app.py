@@ -1,9 +1,6 @@
-from flask import (Flask, render_template, flash, request, url_for, 
-             redirect, session)
-from wtforms import Form, TextField, PasswordField, validators
+from flask import(Flask, render_template, flash, request, url_for, redirect, session)
 from passlib.hash import sha256_crypt
 from functools import wraps
-
 from flask import g
 import sqlite3 as sql
 import gc
@@ -16,8 +13,8 @@ DATABASE = 'database.db'
 @app.route('/')
 def home_page():
 	'''this load the index.html'''
-	# flash("Flash test!!!")
-	return render_template('index.html')
+	results = methods_get_all() 
+	return render_template('index.html', results=results)
 
 def login_required(f):
 	@wraps(f)
@@ -26,8 +23,7 @@ def login_required(f):
 		if 'logged_in' in session:
 			return f(*args, **kwargs)
 		else:
-			msg = 'You need to login first'
-			return redirect(url_for('home_page', msg=msg))
+			return redirect(url_for('home_page'))
 	return wrap
 
 @app.route('/logout/')
@@ -36,7 +32,7 @@ def logout():
 	'''To log out'''
 	session.clear()
 	msg = 'you have been logged out'
-	return redirect(url_for('home_page'), msg=msg)
+	return redirect(url_for('home_page'))
 
 @app.route('/signin', methods=['POST', 'GET'])
 def signin():
@@ -58,10 +54,9 @@ def signin():
 					session['username'] = user[0][1]
 					return  redirect(url_for('owners'))
 				else:
-					return redirect(url_for('home_page'), msg="Username/password is not correct.")
+					return redirect(url_for('home_page'))
 	except Exception as e:
-		msg="something went wrong!!!"
-		return (str(e)) # redirect(url_for('home_page'))
+		return redirect(url_for('home_page'))
 
 @app.route('/signup/', methods=['POST'])
 def signup():
@@ -90,10 +85,13 @@ def signup():
 				cur.execute("INSERT INTO users (username, password, name, phone, email, prev) VALUES (?, ?, ?, ?, ?, ?)", (username, password, name, phone, email, 'admin'))
 				con.commit()
 				msg = "Record successfully added"
-				con.close()
-				return redirect(url_for('owners'), msg=msg)
+				# con.close()
+				# session['logged_in'] = True
+				# session['id'] = user[0][0]
+				# session['username'] = user[0][1]
+				return redirect(url_for('owners'))
 	except Exception as e:
-		con.rollback()
+		# con.rollback()
 		msg = "error in insert operation"
 		con.close()
 		return redirect(url_for('home_page'), msg=msg)
@@ -101,6 +99,8 @@ def signup():
 
 @app.route('/owners')
 def owners():
+	stores = read_stores_for_owner(session['id'])
+	print stores
 	return render_template('owner.html')
 
 @app.route('/addstore/', methods=['POST'])
@@ -109,7 +109,7 @@ def addstore():
 		if request.method == 'POST':
 			storeName = request.form['storeName']
 			location = request.form['location']
-			user_id = 2#session['id']
+			user_id = session['id']
 			with sql.connect("database.db", timeout=1) as con:
 				cur = con.cursor()
 				query = "SELECT * FROM stores WHERE name = '"+storeName+"' AND location = '"+location+"'"
@@ -119,7 +119,7 @@ def addstore():
 					'''This means that the username is already used'''
 					msg= "Store already used"
 					return render_template('owner.html', msg=msg)
-				cur.execute("INSERT INTO stores (u_id, name, location) VALUES (?, ?, ?)", (storeName, location, user_id))
+				cur.execute("INSERT INTO stores (u_id, name, location) VALUES (?, ?, ?)", (user_id, storeName, location))
 				con.commit()
 				msg = "Record successfully added"
 				# con.close()
@@ -163,12 +163,15 @@ def addprod():
 		# con.close()
 		return redirect(url_for('owners'))
 
-@app.route('/methods')
-def methods():
-	id = 1
+# @app.route('/methods')
+def methods_get_all():
+	product_list = []
 	stores = read_stores()
-	products = read_products_for_store(id)
-	return render_template('methods.html', stores=stores, products=products)
+	for store in stores:
+		products = read_products_for_store(store[0])
+		product_list.append(products)
+	result = [stores, product_list] 
+	return result
 
 def read_stores():
 	try:
@@ -187,12 +190,12 @@ def read_products_for_store(id):
 		with sql.connect("database.db", timeout=1) as con:
 			cur = con.cursor()
 			if int(id):
-				query = "SELECT * FROM products WHERE store_id = '"+id+"'"
+				query = "SELECT * FROM products WHERE store_id = '" + str(id) + "' "
 				products = cur.execute(query).fetchall()
-			return query
+			return products
 	except Exception as e:
 		msg = 'Something went wrong'
-		return (msg)
+		return (str(e))
 
 
 def read_products():
@@ -206,16 +209,16 @@ def read_products():
 		msg = 'Something went wrong'
 		return (msg)
 
-def read_stores_for_owner():
+def read_stores_for_owner(u_id):
 	try:
 		with sql.connect("database.db", timeout=1) as con:
 			cur = con.cursor()
-			query = "SELECT * FROM stores WHERE u_id -"+u_id
+			query = "SELECT * FROM stores WHERE u_id = '"+str(u_id)+"'"
 			stores = cur.execute(query).fetchall()
 			return stores
 	except Exception as e:
 		msg = 'Something went wrong'
-		return (msg)
+		return (str(e))
 
 
 def share_link():
