@@ -1,4 +1,4 @@
-database.db
 *.pyc
 osa_env
 test_app.py
+cdb.py
