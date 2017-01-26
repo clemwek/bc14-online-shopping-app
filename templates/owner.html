@@ -32,6 +32,92 @@
 	</div>
 </div>
 <h3>{{error}}</h3>
+
+<h2></h2>
+
+<br/><br/><br/>
+<div class="login-panel panel panel-default" style="width: 80%; margin: 0 auto;">
+	<div class="panel-body">
+		<div class="message">
+			<h3>{{msg}}</h3>
+		</div><hr/>
+		<div class="login-panel panel-default" style="background: #C8FFCB;">
+			{% if results[0] == [] %}
+				<h1>This is a clean installation!!!</h1>
+			{% endif %}
+			{% for store in results[0] %}
+				{% for product_list in results[1] %}
+					{% if store[0] in product_list %}
+
+			<div class="row">
+				<div class="col-sm-2">
+					<div class="store-name">
+						<div class="media-left">
+							<a href="#">
+								<img class="media-object" src="{{ url_for('static', filename='img/store.png') }}" alt="StoreName.location">
+							</a>
+							<p>{{StoreName}}StoreName</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="product-row">
+						<div class="media-left">
+							<a href="#">
+								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
+							</a>
+							<p>{{productname}} product name</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="product-row">
+						<div class="media-left">
+							<a href="#">
+								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
+							</a>
+							<p>{{productname}} product name</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="product-row">
+						<div class="media-left">
+							<a href="#">
+								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
+							</a>
+							<p>{{productname}} product name</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="product-row">
+						<div class="media-left">
+							<a href="#">
+								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
+							</a>
+							<p>{{productname}} product name</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="product-row">
+						<div class="media-left">
+							<a href="#">
+								<img class="media-object" src="{{ url_for('static', filename='img/product.png') }}" alt="StoreName.location">
+							</a>
+							<p>{{productname}} product name</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!-- row -->
+					{% endif %}
+				{% endfor %}
+			{% endfor %}	
+	</div>
+</div>
+
 {% endblock %}
 
 {% block modal %}
@@ -89,7 +175,8 @@
 					</div>
 					<div class="col-xs-4">
 						<label class="sr-only" for="prodName">Store Name: </label>
-						<select name="store_id">	
+						<select name="store_id">
+							{%  %}
 							<option>choose store</option>
 							<option value="2">test 2</option>
 						</select><p class="help-text small">Enter your Product name.</p>
