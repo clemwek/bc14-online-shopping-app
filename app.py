@@ -99,9 +99,12 @@ def signup():
 
 @app.route('/owners')
 def owners():
+	product_list = []
 	stores = read_stores_for_owner(session['id'])
-	print stores
-	return render_template('owner.html')
+	for store in stores:
+		product_list.append(read_products_for_store(store[1]))
+	print product_list
+	return render_template('owner.html', stores=stores, )
 
 @app.route('/addstore/', methods=['POST'])
 def addstore():
