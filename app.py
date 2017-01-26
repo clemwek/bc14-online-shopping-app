@@ -83,18 +83,17 @@ def signup():
 					msg= "Username already used"
 					return render_template('index.html', msg=msg)
 				cur.execute("INSERT INTO users (username, password, name, phone, email, prev) VALUES (?, ?, ?, ?, ?, ?)", (username, password, name, phone, email, 'admin'))
-				con.commit()
+				new_user = con.execute("SELECT * FROM users WHERE username = '" + username + "'").fetchall()
 				msg = "Record successfully added"
 				# con.close()
-				# session['logged_in'] = True
-				# session['id'] = user[0][0]
-				# session['username'] = user[0][1]
+				session['logged_in'] = True
+				session['id'] = new_user[0][0]
+				session['username'] = new_user[0][1]
 				return redirect(url_for('owners'))
 	except Exception as e:
 		# con.rollback()
-		msg = "error in insert operation"
 		con.close()
-		return redirect(url_for('home_page'), msg=msg)
+		return (str(e))# redirect(url_for('home_page'))
 
 
 @app.route('/owners')
@@ -104,7 +103,7 @@ def owners():
 	for store in stores:
 		product_list.append(read_products_for_store(store[1]))
 	print product_list
-	return render_template('owner.html', stores=stores, )
+	return render_template('owner.html', stores=stores, product_list=product_list)
 
 @app.route('/addstore/', methods=['POST'])
 def addstore():
