@@ -53,15 +53,15 @@ def signin():
 
 				user = cur.execute(query).fetchall()
 				if username == user[0][1] and password == user[0][2]:
-					# session['logged_in'] = True
-					# session['id'] = user[0]
-					# session['username'] = user[1]
-					return redirect(url_for('owners'))
+					session['logged_in'] = True
+					session['id'] = user[0][0]
+					session['username'] = user[0][1]
+					return  redirect(url_for('owners'))
 				else:
 					return redirect(url_for('home_page'), msg="Username/password is not correct.")
 	except Exception as e:
 		msg="something went wrong!!!"
-		return redirect(url_for('home_page'))
+		return (str(e)) # redirect(url_for('home_page'))
 
 @app.route('/signup/', methods=['POST'])
 def signup():
@@ -134,15 +134,6 @@ def addstore():
 
 @app.route('/addprod/', methods=['POST'])
 def addprod():
-	# try:
-	# 	if request.method == 'POST':
-	# 		store_id = request.form['store_id']
-	# 		prodName = request.form['prodName']
-	# 		price = request.form['price']
-			
-	# 		return price 
-	# except Exception as e:
-	# 	return "Not working"
 	try:
 		if request.method == 'POST':
 			store_id = request.form['store_id']
@@ -170,12 +161,13 @@ def addprod():
 		# con.rollback()
 		msg = "error in insert operation"
 		# con.close()
-		return (str (e))#redirect(url_for('owners'))
+		return redirect(url_for('owners'))
 
 @app.route('/methods')
 def methods():
+	id = 1
 	stores = read_stores()
-	products = read_products()
+	products = read_products_for_store(id)
 	return render_template('methods.html', stores=stores, products=products)
 
 def read_stores():
@@ -185,6 +177,19 @@ def read_stores():
 			query = "SELECT * FROM stores"
 			stores = cur.execute(query).fetchall()
 			return stores
+	except Exception as e:
+		msg = 'Something went wrong'
+		return (msg)
+
+
+def read_products_for_store(id):
+	try:
+		with sql.connect("database.db", timeout=1) as con:
+			cur = con.cursor()
+			if int(id):
+				query = "SELECT * FROM products WHERE store_id = '"+id+"'"
+				products = cur.execute(query).fetchall()
+			return query
 	except Exception as e:
 		msg = 'Something went wrong'
 		return (msg)
@@ -212,17 +217,6 @@ def read_stores_for_owner():
 		msg = 'Something went wrong'
 		return (msg)
 
-
-def read_products_for_store():
-	try:
-		with sql.connect("database.db", timeout=1) as con:
-			cur = con.cursor()
-			query = "SELECT * FROM products WHERE store_id = "+store_id
-			products = cur.execute(query).fetchall()
-			return productss
-	except Exception as e:
-		msg = 'Something went wrong'
-		return (msg)
 
 def share_link():
 	return "shared"
