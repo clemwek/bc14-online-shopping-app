@@ -101,7 +101,7 @@ def owners():
 	product_list = []
 	stores = read_stores_for_owner(session['id'])
 	for store in stores:
-		product_list.append(read_products_for_store(store[1]))
+		product_list.append(read_products_for_store(store[0]))
 	print product_list
 	return render_template('owner.html', stores=stores, product_list=product_list)
 
@@ -119,7 +119,7 @@ def addstore():
 				print (store)
 				if len(store) > 0:
 					'''This means that the username is already used'''
-					msg= "Store already used"
+					msg= "Store name already used"
 					return render_template('owner.html', msg=msg)
 				cur.execute("INSERT INTO stores (u_id, name, location) VALUES (?, ?, ?)", (user_id, storeName, location))
 				con.commit()
@@ -141,13 +141,10 @@ def addprod():
 			store_id = request.form['store_id']
 			prodName = request.form['prodName']
 			price = request.form['price']
-			# return store_id
-			print "HERE", request.form, request.form['store_id']
 			with sql.connect("database.db", timeout=1) as con:
 				cur = con.cursor()
 				query = "SELECT * FROM products "
 				stores = cur.execute(query).fetchall()
-				print (stores)
 				if prodName in stores:
 					'''This means that the username is already used'''
 					msg= "Store already used"
