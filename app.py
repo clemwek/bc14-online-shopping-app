@@ -191,7 +191,7 @@ def read_products_for_store(id):
 			if int(id):
 				query = "SELECT * FROM products WHERE store_id = '" + str(id) + "' "
 				products = cur.execute(query).fetchall()
-			return products
+			return products[0]
 	except Exception as e:
 		msg = 'Something went wrong'
 		return (str(e))
