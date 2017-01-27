@@ -14,6 +14,7 @@ DATABASE = 'database.db'
 def home_page():
 	'''this load the index.html'''
 	results = methods_get_all() 
+	print results
 	return render_template('index.html', results=results)
 
 def login_required(f):
@@ -168,7 +169,8 @@ def methods_get_all():
 	stores = read_stores()
 	for store in stores:
 		products = read_products_for_store(store[0])
-		product_list.append(products)
+		if type(products) == tuple:
+			product_list.append(products)
 	result = [stores, product_list] 
 	return result
 
