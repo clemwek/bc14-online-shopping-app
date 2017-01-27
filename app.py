@@ -13,9 +13,9 @@ DATABASE = 'database.db'
 @app.route('/')
 def home_page():
 	'''this load the index.html'''
-	results = methods_get_all() 
-	print results
-	return render_template('index.html', results=results)
+	stores = read_stores()
+	products = read_products()
+	return render_template('index.html', stores=stores, products=products)
 
 def login_required(f):
 	@wraps(f)
@@ -170,7 +170,7 @@ def addprod():
 # @app.route('/methods')
 def methods_get_all():
 	product_list = []
-	stores = read_stores()
+	
 	for store in stores:
 		products = read_products_for_store(store[0])
 		if type(products) == tuple:
