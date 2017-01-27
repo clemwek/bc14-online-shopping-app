@@ -29,8 +29,6 @@
 				<h1>This is a clean installation!!!</h1>
 			{% endif %}
 			{% for store in results[0] %}
-				{% for product_list in results[1] %}
-					{% if store[0] in product_list %}
 
 			<div class="row">
 				<div class="col-sm-2">
@@ -43,6 +41,11 @@
 						</div>
 					</div>
 				</div>
+
+				{% for product_list in results[1] %}
+					{% if store[0] in product_list %}
+
+			
 				<div class="col-sm-2">
 					<div class="product-row">
 						<div class="media-left">
@@ -93,13 +96,13 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		</div><!-- row -->
 
 					{% endif %}
 				{% endfor %}
+			</div>
 			{% endfor %}
 			
+		</div><!-- row -->
 	</div>
 </div>
 {% endblock %}
