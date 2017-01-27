@@ -101,8 +101,12 @@ def signup():
 def owners():
 	product_list = []
 	stores = read_stores_for_owner(session['id'])
+	products = read_products()
 	for store in stores:
-		product_list.append(read_products_for_store(store[0]))
+		for product in products:
+			if store[0] in product:
+				product_list.append(product)
+		
 	print product_list
 	return render_template('owner.html', stores=stores, product_list=product_list)
 
